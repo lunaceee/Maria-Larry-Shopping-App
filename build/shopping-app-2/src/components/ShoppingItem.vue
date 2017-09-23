@@ -1,24 +1,9 @@
 <template>
 <div id='shopping-item' class='shopping-area'>
-  <div class='item'
-  v-for='item in newItems'
-  v-bind:category='item.category'
-  v-if='item.category === $route.params.category'
-  >
-    <v-touch class="vtouch"
-    ref="swiper"
-    v-on:pan="removeItemSwipe"
-    v-bind:uid="(item['.key'])"
-    v-bind:amount='item.amount'
-    v-on:panend="removeStyle"
-    v-bind:panleft-options="{ threshold: 0, pointers: 0 }"
-    v-bind:panend-options="{ threshold: 0, pointers: 0 }"
-    >
+  <div class='item' v-for='item in newItems' v-bind:category='item.category' v-bind:amount='item.amount' v-if='item.category === $route.params.category'>
+    <v-touch v-on:pan="removeItemSwipe" v-on:panend="removeStyle" v-bind:panleft-options="{ threshold: 0, pointers: 0 }" panendv-bind:panleft-options="{ threshold: 0, pointers: 0 }">
       <div class='name-container'>
-        <input
-        v-model="item.name"
-        @keyup.enter="updateItem(item)"
-        placeholder="Add New Item" />
+        <input v-model="item.name" @keyup.enter="updateItem(item)" placeholder="Add New Item" />
       </div>
       <div class="right-align">
         <div class="button" @click="minus(item)">-</div>
@@ -27,7 +12,7 @@
       </div>
     </v-touch>
   </div>
-  <input id="addItem" v-model="newItem" placeholder="Add New Item" />
+  <input class="addItem" v-model="newItem" placeholder="Add New Item" />
   <div class="addItem-button" @click="addItem">Add item</div>
 </div>
 </template>
@@ -79,8 +64,6 @@ export default {
         category: this.$route.params.category,
         amount: '0'
       })
-
-      document.getElementById('addItem').reset()
     },
     updateItem (item) {
       itemsRef.child(item['.key'])
@@ -89,37 +72,13 @@ export default {
         })
     },
     removeItemSwipe (i) {
-      var draggableItem = i.target.closest('.item')
-      draggableItem.setAttribute('style', 'transform: translateX(' + (i.deltaX * 0.5) + 'px)')
-      draggableItem.classList.add('draggable')
-      if (i.deltaX < -200) {
-        draggableItem.classList.add('toRemove')
-      } else {
-        draggableItem.classList.remove('toRemove')
-      }
+      i.target.closest('.item').setAttribute('style', 'transform: translateX(' + i.deltaX + 'px)')
+      console.log(i.distance)
+      // itemsRef.child(item['.key']).style.transform = 'translateX(-' + i.distance + ')'
+      // itemsRef.child(item['.key']).remove()
     },
     removeStyle (i) {
-      var draggableItem = i.target.closest('.item')
-      var key = i.target.closest('.vtouch').getAttribute('uid')
-      var newAmount = i.target.closest('.vtouch').getAttribute('amount')
-      draggableItem.setAttribute('style', '')
-      draggableItem.classList.remove('draggable')
-
-      if (i.deltaX > 30) {
-        itemsRef.child(key)
-          .update({
-            amount: ++newAmount
-          })
-      }
-      if (i.deltaX < -30 && newAmount > 0) {
-        itemsRef.child(key)
-          .update({
-            amount: --newAmount
-          })
-      }
-      if (i.deltaX < -200) {
-        itemsRef.child(key).remove()
-      }
+      i.target.closest('.item').setAttribute('style', '')
     }
   },
   created () {
@@ -137,13 +96,6 @@ export default {
     font-size: 14px;
     border-bottom: #DFE2E8 solid 1px;
     padding-left: 8px;
-    transition: transform ease-out .2s;
-    &.draggable {
-      transition: background ease .2s;
-      &.toRemove {
-        background: #EC5F4A;
-      }
-    }
     span {
       height: 32px;
       width: 32px;

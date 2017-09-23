@@ -5,7 +5,6 @@
         <img class="icon" src="./../assets/home.svg" alt="">
         <span class='footer-text'>Home</span>
       </router-link>
-      <router-link active-class class="footer-link" to="/list">List</router-link>
     </div>
   </div>
 </template>

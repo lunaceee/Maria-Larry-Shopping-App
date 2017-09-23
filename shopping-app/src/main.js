@@ -7,6 +7,8 @@ import store from './store/store'
 
 Vue.config.productionTip = false
 /* eslint-disable no-new */
+var VueTouch = require('vue-touch')
+Vue.use(VueTouch, {name: 'v-touch'})
 
 new Vue({
   el: '#app',
