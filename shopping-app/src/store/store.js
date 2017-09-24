@@ -5,6 +5,6 @@ import router from '@/router'
 Vue.use(Vuex)
 Vue.use(router)
 
-export default new Vuex.Store({
-  state
-})
+// export default new Vuex.Store({
+//   state
+// })
