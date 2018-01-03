@@ -35,7 +35,7 @@ export default {
     &.daily {
      background-color: rgba(0,0,0 ,0.05);
     }
-    &.weekly {
+    &.weekly, &.list {
      background-color: rgba(0,0,0 ,0.10);
     }
     &.monthly {

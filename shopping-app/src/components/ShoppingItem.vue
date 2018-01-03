@@ -1,53 +1,40 @@
 <template>
 <div id='shopping-item' class='shopping-area'>
-  <div class='item'
-  v-for='item in newItems'
-  v-bind:category='item.category'
-  v-if='item.category === $route.params.category'
-  >
-    <v-touch class="vtouch"
-    ref="swiper"
-    v-on:pan="removeItemSwipe"
-    v-bind:uid="(item['.key'])"
-    v-bind:amount='item.amount'
-    v-on:panend="removeStyle"
-    v-bind:panleft-options="{ threshold: 0, pointers: 0 }"
-    v-bind:panend-options="{ threshold: 0, pointers: 0 }"
+
+    <div class='item'
+    v-for='item in newItems'
+    v-bind:category='item.category'
+    v-if='item.category === $route.params.category'
     >
-      <div class='name-container'>
-        <input
-        v-model="item.name"
-        @keyup.enter="updateItem(item)"
-        placeholder="Add New Item" />
-      </div>
-      <div class="right-align">
-        <div class="button" @click="minus(item)">-</div>
-        <span>{{ item.amount }}</span>
-        <div class="button" @click="plus(item)">+</div>
-      </div>
-    </v-touch>
-  </div>
-  <input id="addItem" v-model="newItem" placeholder="Add New Item" />
-  <div class="addItem-button" @click="addItem">Add item</div>
+      <v-touch class="vtouch"
+      ref="swiper"
+      v-on:pan="removeItemSwipe"
+      v-bind:uid="(item['.key'])"
+      v-bind:amount='item.amount'
+      v-on:panend="removeStyle"
+      v-bind:panleft-options="{ threshold: 0, pointers: 0 }"
+      v-bind:panend-options="{ threshold: 0, pointers: 0 }"
+      >
+        <div class='name-container'>
+          <input
+          v-model="item.name"
+          @keyup.enter="updateItem(item)"
+          placeholder="Add New Item" />
+        </div>
+        <div class="right-align">
+          <div class="button" @click="minus(item)">-</div>
+          <span>{{ item.amount }}</span>
+          <div class="button" @click="plus(item)">+</div>
+        </div>
+      </v-touch>
+    </div>
+    <input id="addItem" v-model="newItem" placeholder="Add New Item" />
+    <div class="addItem-button" @click="addItem">Add item</div>
+
 </div>
 </template>
 <script>
-import Vue from 'vue'
-
-var VueFire = require('vuefire')
-var firebase = require('firebase')
-Vue.use(VueFire)
-
-const config = {
-  apiKey: 'AIzaSyCs2IdLfd7mDbcPHhsOMY0u_2KZIiwriic',
-  authDomain: 'shopping-app-e063d.firebaseapp.com',
-  databaseURL: 'https://shopping-app-e063d.firebaseio.com',
-  projectId: 'shopping-app-e063d',
-  storageBucket: 'shopping-app-e063d.appspot.com',
-  messagingSenderId: '167034361296'
-}
-
-const firebaseApp = firebase.initializeApp(config)
+import { firebaseApp } from '@/firebase'
 const db = firebaseApp.database()
 var itemsRef = db.ref('items')
 
@@ -186,6 +173,12 @@ export default {
   &:hover {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
   }
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0
 }
 
 </style>
