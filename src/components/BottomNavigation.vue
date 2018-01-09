@@ -6,6 +6,7 @@
         <span class='footer-text'>Home</span>
       </router-link>
       <router-link active-class class="footer-link" to="/list">List</router-link>
+      <router-link active-class class="footer-link" to="/settings">Settings</router-link>
     </div>
   </div>
 </template>
