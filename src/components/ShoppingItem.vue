@@ -1,40 +1,34 @@
 <template>
 <div id='shopping-item' class='shopping-area'>
 
-    <div class='item'
-    v-for='item in newItems'
-    v-bind:category='item.category'
-    v-if='item.category === $route.params.category'
-    >
-      <v-touch class="vtouch"
-      ref="swiper"
-      v-on:pan="removeItemSwipe"
-      v-bind:uid="(item['.key'])"
-      v-bind:amount='item.amount'
-      v-on:panend="removeStyle"
-      v-bind:panleft-options="{ threshold: 0, pointers: 0 }"
-      v-bind:panend-options="{ threshold: 0, pointers: 0 }"
-      >
-        <div class='name-container'>
-          <input
-          v-model="item.name"
-          @keyup.enter="updateItem(item)"
-          placeholder="Add New Item" />
-        </div>
-        <div class="right-align">
-          <div class="button" @click="minus(item)">-</div>
-          <span>{{ item.amount }}</span>
-          <div class="button" @click="plus(item)">+</div>
-        </div>
-      </v-touch>
-    </div>
-    <input id="addItem" v-model="newItem" placeholder="Add New Item" />
+  <div class='item login' v-for='item in newItems' v-bind:category='item.category' v-if='item.category === $route.params.category'>
+    <v-touch class="vtouch" ref="swiper" v-bind:pan-options="{direction: 'horizontal', pointer: 0, threshold: 0}" v-on:pan="removeItemSwipe" v-bind:uid="(item['.key'])" v-bind:amount='item.amount' v-on:panend="removeStyle">
+      <div class='name-container'>
+        <input v-model="item.name" @keyup.enter="updateItem (item)" @blur="updateItem (item)" placeholder="Add New Item" />
+      </div>
+      <div class="right-align">
+        <div class="button" @click="minus (item)">-</div>
+        <span>{{ item.amount }}</span>
+        <div class="button" @click="plus (item)">+</div>
+      </div>
+    </v-touch>
+  </div>
+
+  <div class="focus-overlay" v-show="newItemFocus">
+
+  </div>
+  <div class="addItem-container" :class="{active: newItemFocus }">
+    <input id="addItem" @focus="newItemFocus = true" @blur="newItemFocus = false" v-model="newItem" @keyup.enter="addItem" placeholder="Add New Item" />
     <div class="addItem-button" @click="addItem">Add item</div>
+  </div>
+
 
 </div>
 </template>
 <script>
-import { firebaseApp } from '@/firebase'
+import {
+  firebaseApp
+} from '@/firebase'
 const db = firebaseApp.database()
 var itemsRef = db.ref('items')
 
@@ -43,9 +37,14 @@ export default {
 
   data: () => ({
     newItems: [],
-    newItem: ''
+    newItem: '',
+    newItemFocus: false
   }),
   methods: {
+    disableSwipe (i) {
+      // console.log (i)
+      // i.disableAll()
+    },
     plus (item) {
       itemsRef.child(item['.key'])
         .update({
@@ -66,8 +65,7 @@ export default {
         category: this.$route.params.category,
         amount: '0'
       })
-
-      document.getElementById('addItem').reset()
+      this.newItem = ''
     },
     updateItem (item) {
       itemsRef.child(item['.key'])
@@ -76,13 +74,15 @@ export default {
         })
     },
     removeItemSwipe (i) {
-      var draggableItem = i.target.closest('.item')
-      draggableItem.setAttribute('style', 'transform: translateX(' + (i.deltaX * 0.5) + 'px)')
-      draggableItem.classList.add('draggable')
-      if (i.deltaX < -200) {
-        draggableItem.classList.add('toRemove')
-      } else {
-        draggableItem.classList.remove('toRemove')
+      if (i.center.x !== 0) {
+        var draggableItem = i.target.closest('.item')
+        draggableItem.classList.add('draggable')
+        draggableItem.setAttribute('style', 'transform: translateX(' + (i.deltaX * 0.5) + 'px)')
+        if (i.deltaX <= -80) {
+          draggableItem.classList.add('toRemove')
+        } else {
+          draggableItem.classList.remove('toRemove')
+        }
       }
     },
     removeStyle (i) {
@@ -104,7 +104,7 @@ export default {
             amount: --newAmount
           })
       }
-      if (i.deltaX < -200) {
+      if (i.deltaX < -80) {
         itemsRef.child(key).remove()
       }
     }
@@ -114,71 +114,105 @@ export default {
   }
 }
 </script>
-<style lang='scss'>
+<style lang="scss">
 .item {
+    .vtouch {
+        height: 100%;
+    }
     margin: 8px;
     border-radius: 8px;
     position: relative;
-    background: #FEFEFE;
+    background: #2b2b2b;
     height: 48px;
     font-size: 14px;
-    border-bottom: #DFE2E8 solid 1px;
+    border-bottom: #181818 solid 1px;
     padding-left: 8px;
-    transition: transform ease-out .2s;
+    transition: transform ease-out 0.2s;
+    box-shadow: 0 1px 14px 0 rgba(0,0,0,0.10);
     &.draggable {
-      transition: background ease .2s;
-      &.toRemove {
-        background: #EC5F4A;
-      }
+        transition: background ease 0.2s;
+        &.toRemove {
+            background: #EC5F4A;
+            &::after {
+                position: absolute;
+                right: -32px;
+                top: 0;
+                line-height: 48px;
+                font-size: 28px;
+                font-family: "FontAwesome";
+                content: "\f2ed";
+            }
+        }
     }
     span {
-      height: 32px;
-      width: 32px;
-      display: inline-block;
+        height: 32px;
+        width: 32px;
+        display: inline-block;
     }
     input {
-      float: left;
-      padding-left: 8px;
-      line-height: 48px;
-      background: transparent;
-      border: none;
+        color: #fff;
+        float: left;
+        padding-left: 8px;
+        line-height: 48px;
+        width: 100%;
+        background: transparent;
+        border: none;
     }
 }
-.button {
-  display: inline-block;
-  margin: 8px;
-  border-radius: 8px;
-  cursor: pointer;
-  background: #D7D7DE;
-  height: 32px;
-  width: 32px;
-  line-height: 32px;
-}
+
 .right-align {
-  position: absolute;
-  right: 0;
-}
-.addItem, .addItem-button {
-  border-radius: 8px;
-  border: none;
-  display: inline-block;
-  padding: 8px;
-}
-.addItem-button {
-  margin-left: 8px;
-  background: rgba(0,0,0,0.2);
-  color: #ffffff;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-  transition: all ease .4s;
-  &:hover {
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-  }
-}
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s
-}
-.fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0
+    position: absolute;
+    right: 0;
 }
 
+.addItem,
+.addItem-button {
+    border-radius: 8px;
+    border: none;
+    display: inline-block;
+    padding: 8px;
+}
+.addItem-button {
+    margin-left: 8px;
+    background: rgba(0,0,0,0.2);
+    color: #ffffff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    transition: all ease 0.4s;
+    border: 1px solid rgba(#565656, 0.7);
+    &:hover {
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    }
+}
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s;
+}
+/* .fade-leave-active below version 2.1.8 */
+.fade-leave-to {
+    opacity: 0;
+}
+.addItem-container {
+    z-index: 2;
+    position: fixed;
+    bottom: 60px;
+    padding: 15px;
+    left: 0;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    transition: all ease 0.4s;
+    background: rgba(#1e1e1e, 1);
+    &.active {
+        bottom: 0;
+    }
+}
+.focus-overlay {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(#1e1e1e, .9);
+}
 </style>

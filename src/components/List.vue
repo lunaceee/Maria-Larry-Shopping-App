@@ -49,10 +49,10 @@ export default {
     margin: 8px;
     border-radius: 8px;
     position: relative;
-    background: #FEFEFE;
+    background: #2b2b2b;
     height: 48px;
     font-size: 14px;
-    border-bottom: #DFE2E8 solid 1px;
+    border-bottom: #181818 solid 1px;
     padding-left: 8px;
     transition: transform ease-out .2s;
     &.draggable {

@@ -6,6 +6,7 @@ import router from './router'
 import store from './store/store'
 // import firebaseApp from '@/firebase'
 import firebase from 'firebase'
+import 'normalize.css'
 
 Vue.config.productionTip = false
 /* eslint-disable no-new */
@@ -26,3 +27,6 @@ firebase.auth().onAuthStateChanged(function (user) {
     })
   }
 })
+
+import '@/assets/fontawesome/js/fontawesome-all.js'
+import '@fortawesome/fontawesome'

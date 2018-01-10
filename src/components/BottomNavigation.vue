@@ -1,11 +1,11 @@
 <template>
   <div id="bottom-nav">
     <div class="mobile-bottom-bar">
+      <router-link active-class class="footer-link" to="/list">List</router-link>
       <router-link active-class class="footer-link" to="/">
         <img class="icon" src="./../assets/home.svg" alt="">
-        <span class='footer-text'>Home</span>
+        <span class='footer-text'>To Buy</span>
       </router-link>
-      <router-link active-class class="footer-link" to="/list">List</router-link>
       <router-link active-class class="footer-link" to="/settings">Settings</router-link>
     </div>
   </div>
@@ -29,7 +29,7 @@ export default {
   text-decoration: none;
 }
 
-$primary-color: rgba(13,71,161 ,1);
+$primary-color: rgba(#2B2B2B, 1);
 $mobile-bottom-bar-primary-dark: darken($primary-color, 20%);
 
 .mobile-bottom-bar {
