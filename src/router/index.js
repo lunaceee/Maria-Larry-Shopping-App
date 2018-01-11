@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import List from './../components/List'
+import List from '@/views/List'
 import ShoppingItem from './../components/ShoppingItem'
 import SignUp from '@/views/SignUp'
 import Login from '@/views/Login'

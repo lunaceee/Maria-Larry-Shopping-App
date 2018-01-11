@@ -18,8 +18,7 @@ import BottomNavigation from './components/BottomNavigation'
 export default {
   data: () => ({
     newItems: [],
-    newItem: '',
-    user: []
+    newItem: ''
   }),
   name: 'app',
   components: {

@@ -1,6 +1,19 @@
 <template>
   <div id='list'>
-    <div class="" v-if="itemsInBasket > 0">
+    <div v-for="i in itemsGroups" :key="i.key">
+      {{ i }}
+      <div  v-for="item in items" :key="item.key">
+        <div class="item" v-if="item.amount > 0 && item.category === i">
+          <div class="">
+            <span class="name">{{item.name}}</span>
+          </div>
+          <div class="right-align">
+            <span>{{ item.amount }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="" v-if="itemsInBasket > 0">
       <div  v-for="item in items" :key="item.key">
         <div class="item" v-if="item.amount > 0">
           <div class="">
@@ -14,7 +27,7 @@
     </div>
     <div class="" v-else>
       No items in the basket
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
@@ -36,6 +49,16 @@ export default {
         }
       }
       return nOfItems
+    },
+    itemsGroups: function itemsGroups () {
+      let item = ''
+      let categories = []
+      for (item of this.items) {
+        categories.push(item.category)
+        // var list = categories[item.category]
+      }
+      console.log(categories)
+      return Array.from(new Set(categories))
     }
   },
   created () {
@@ -47,6 +70,7 @@ export default {
 
 .item {
     margin: 8px;
+    width: 100%;
     border-radius: 8px;
     position: relative;
     background: #2b2b2b;
@@ -70,6 +94,9 @@ export default {
       height: 32px;
       width: 32px;
       display: inline-block;
+      &.name {
+        width: 100%;
+      }
     }
     .right-align {
       position: absolute;
