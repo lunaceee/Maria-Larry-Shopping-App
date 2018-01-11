@@ -28,7 +28,7 @@ export default {
     signIn: function () {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
         (user) => {
-          this.$router.replace('daily')
+          this.$router.replace('list')
         },
         (err) => {
           alert('Oops. ' + err.message)

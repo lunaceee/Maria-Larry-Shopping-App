@@ -6,6 +6,7 @@ import SignUp from '@/views/SignUp'
 import Login from '@/views/Login'
 import Settings from '@/views/Settings'
 import forgotPassword from '@/views/forgotPassword'
+import Categories from '@/views/Categories'
 import firebase from 'firebase'
 
 Vue.use(Router)
@@ -49,6 +50,14 @@ let router = new Router({
       }
     },
     {
+      path: '/categories',
+      name: 'categories',
+      component: Categories,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '/:category',
       name: 'category',
       component: ShoppingItem,
@@ -66,7 +75,7 @@ router.beforeEach((to, from, next) => {
   let currentUser = firebase.auth().currentUser
   let requiresAuth = to.matched.some(record => record.meta.requiresAuth)
   if (requiresAuth && !currentUser) next('login')
-  else if (!requiresAuth && currentUser) next('daily')
+  else if (!requiresAuth && currentUser) next('list')
   else next()
 })
 

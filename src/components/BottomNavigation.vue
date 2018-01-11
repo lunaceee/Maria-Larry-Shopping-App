@@ -2,7 +2,7 @@
   <div id="bottom-nav">
     <div class="mobile-bottom-bar">
       <router-link active-class class="footer-link" to="/list">List</router-link>
-      <router-link active-class class="footer-link" to="/">
+      <router-link active-class class="footer-link" to="/categories">
         <img class="icon" src="./../assets/home.svg" alt="">
         <span class='footer-text'>To Buy</span>
       </router-link>

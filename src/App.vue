@@ -1,7 +1,7 @@
 <template>
 <div id="app" v-bind:class="[$route.params.category, $route.name]">
   <div class="container">
-    <nav-menu class="navigation" v-show="$route.meta.requiresAuth"></nav-menu>
+    <nav-menu class="navigation" v-show="$route.meta.requiresAuth && $route.params.category"></nav-menu>
     <router-view class="app-body"></router-view>
   </div>
   <bottom-nav v-show="$route.meta.requiresAuth"></bottom-nav>
@@ -62,6 +62,7 @@ export default {
     }
 }
 .container {
+  height: calc(100% - 3.778rem);
   @media (max-width: 768px) {
     .navigation {
       position: fixed;
@@ -76,7 +77,6 @@ export default {
   }
   @media (min-width: 768px) {
     display: flex;
-    height: 100%;
     .app-body {
       width: 100%;
     }
