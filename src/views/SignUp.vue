@@ -1,6 +1,6 @@
 <template>
   <div class="sign-up">
-    <div class="" v-show="code">
+    <div class="" v-if="code">
       <p>Let's create a new account !</p>
       <input type="text" v-model="email" placeholder="Email"><br>
       <input type="password" v-model="password" placeholder="Password"><br>
@@ -19,7 +19,8 @@
     data: function () {
       return {
         email: '',
-        password: ''
+        password: '',
+        code: false
       }
     },
     methods: {

@@ -5,6 +5,7 @@ import ShoppingItem from './../components/ShoppingItem'
 import SignUp from '@/views/SignUp'
 import Login from '@/views/Login'
 import Settings from '@/views/Settings'
+import forgotPassword from '@/views/forgotPassword'
 import firebase from 'firebase'
 
 Vue.use(Router)
@@ -20,6 +21,11 @@ let router = new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/forgotPassword',
+      name: 'forgotPassword',
+      component: forgotPassword
     },
     {
       path: '/sign-up',
