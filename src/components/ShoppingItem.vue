@@ -14,12 +14,12 @@
     </v-touch>
   </div>
 
-  <div class="focus-overlay" v-show="newItemFocus">
+  <div class="focus-overlay" v-show="isNewItemFocused">
 
   </div>
-  <div class="addItem-container" :class="{active: newItemFocus }">
-    <input id="addItem" ref="newItemRef" @focus="newItemFocus = true" @blur="newItemFocus = false" v-model="newItem" @keydown.esc="removeFocus" @keyup.enter="addItem" placeholder="Add New Item" />
-    <div class="addItem-button" @click="addItem">Add item</div>
+  <div class="addItem-container" :class="{active: isNewItemFocused }">
+    <input id="addItem" ref="newItemRef" v-show="isNewItemFocused" @focus="isNewItemFocused = true" @blur="isNewItemFocused = false" v-model="newItem" @keydown.esc="removeFocus" @keyup.enter="addItem" placeholder="Add New Item" />
+    <div class="addItem-button" @click="isNewItemFocused = true; addFocus()"></div>
   </div>
 
 
@@ -38,15 +38,14 @@ export default {
   data: () => ({
     newItems: [],
     newItem: '',
-    newItemFocus: false
+    isNewItemFocused: false
   }),
   methods: {
     removeFocus () {
       this.$refs.newItemRef.blur()
     },
-    disableSwipe (i) {
-      // console.log (i)
-      // i.disableAll()
+    addFocus () {
+      this.$nextTick(() => this.$refs.newItemRef.focus())
     },
     plus (item) {
       itemsRef.child(item['.key'])
@@ -122,7 +121,8 @@ export default {
     .vtouch {
         height: 100%;
     }
-    margin: 8px;
+    margin: 8px auto;
+    max-width: 35rem;
     border-radius: 8px;
     position: relative;
     background: #2b2b2b;
@@ -151,6 +151,7 @@ export default {
         height: 32px;
         width: 32px;
         display: inline-block;
+        text-align: center;
     }
     input {
         color: #fff;
@@ -207,6 +208,28 @@ export default {
     background: rgba(#1e1e1e, 1);
     &.active {
         bottom: 0;
+    }
+    .addItem-button {
+      &:after {
+        content: 'Add Item'
+      }
+    }
+    @media (max-width: 768px) {
+      background: none;
+      justify-content: flex-end;
+      padding: 0;
+      .addItem-button {
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 15px;
+        &:after {
+          content: '+'
+        }
+      }
     }
 }
 .focus-overlay {
