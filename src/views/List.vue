@@ -1,7 +1,7 @@
 <template>
   <div id='list'>
     <div v-for="i in itemsGroups" :key="i.key">
-      {{ i }}
+      <div class="category-name"> <span>{{ i }}</span> </div>
       <div  v-for="item in items" :key="item.key">
         <div class="item" v-if="item.amount > 0 && item.category === i">
           <div class="">
@@ -67,10 +67,33 @@ export default {
 }
 </script>
 <style media="screen" lang="scss">
-
-.item {
-    margin: 8px;
+.category-name {
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+  position: relative;
+  max-width: 35rem;
+  z-index: 1;
+  span {
+    background-color: #181818;
+    padding: .5rem;
+  }
+  &:after {
+    left: 0;
+    z-index: -1;
+    top: .5rem;
+    position: absolute;
+    content: '';
     width: 100%;
+    border-bottom: 1px #fff solid;
+  }
+}
+.item {
+    .vtouch {
+        height: 100%;
+    }
+    margin: 8px auto;
+    max-width: 35rem;
     border-radius: 8px;
     position: relative;
     background: #2b2b2b;
@@ -78,29 +101,37 @@ export default {
     font-size: 14px;
     border-bottom: #181818 solid 1px;
     padding-left: 8px;
-    transition: transform ease-out .2s;
+    transition: transform ease-out 0.2s;
+    box-shadow: 0 1px 14px 0 rgba(0,0,0,0.10);
     &.draggable {
-      transition: background ease .2s;
-      &.toRemove {
-        background: #EC5F4A;
-      }
+        transition: background ease 0.2s;
+        &.toRemove {
+            background: #EC5F4A;
+            &::after {
+                position: absolute;
+                right: -32px;
+                top: 0;
+                line-height: 48px;
+                font-size: 28px;
+                font-family: "FontAwesome";
+                content: "\f2ed";
+            }
+        }
     }
     span {
-      float: left;
-      padding-left: 8px;
-      line-height: 48px;
-      background: transparent;
-      border: none;
-      height: 32px;
-      width: 32px;
-      display: inline-block;
-      &.name {
-        width: 100%;
-      }
+        height: 32px;
+        width: 32px;
+        display: inline-block;
+        text-align: center;
     }
-    .right-align {
-      position: absolute;
-      right: 0;
+    input {
+        color: #fff;
+        float: left;
+        padding-left: 8px;
+        line-height: 48px;
+        width: 100%;
+        background: transparent;
+        border: none;
     }
 }
 </style>
