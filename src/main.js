@@ -3,14 +3,15 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import store from './store/store'
+// import store from './store/store'
 // import firebaseApp from '@/firebase'
 import firebase from 'firebase'
 import 'normalize.css'
 
 Vue.config.productionTip = false
 /* eslint-disable no-new */
-var VueTouch = require('vue-touch')
+
+var VueTouch = require('vue-touch/dist/vue-touch.js')
 Vue.use(VueTouch, {name: 'v-touch'})
 
 let app
@@ -20,7 +21,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     /* eslint-disable no-new */
     app = new Vue({
       el: '#app',
-      store,
+      // store,
       template: '<App/>',
       components: { App },
       router

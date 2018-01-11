@@ -26,11 +26,6 @@ export default {
     'nav-menu': NavigationMenu,
     'bottom-nav': BottomNavigation
   },
-  computed: {
-    currentUser: function currentUser () {
-      return
-    }
-  },
   mounted () {
     // do something after mounting vue instance
     console.log()
