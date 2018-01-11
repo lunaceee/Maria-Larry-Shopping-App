@@ -18,7 +18,7 @@
 
   </div>
   <div class="addItem-container" :class="{active: newItemFocus }">
-    <input id="addItem" @focus="newItemFocus = true" @blur="newItemFocus = false" v-model="newItem" @keyup.enter="addItem" placeholder="Add New Item" />
+    <input id="addItem" ref="newItemRef" @focus="newItemFocus = true" @blur="newItemFocus = false" v-model="newItem" @keydown.esc="removeFocus" @keyup.enter="addItem" placeholder="Add New Item" />
     <div class="addItem-button" @click="addItem">Add item</div>
   </div>
 
@@ -41,6 +41,9 @@ export default {
     newItemFocus: false
   }),
   methods: {
+    removeFocus () {
+      this.$refs.newItemRef.blur()
+    },
     disableSwipe (i) {
       // console.log (i)
       // i.disableAll()

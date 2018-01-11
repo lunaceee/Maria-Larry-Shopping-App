@@ -28,5 +28,5 @@ firebase.auth().onAuthStateChanged(function (user) {
   }
 })
 
-import '@/assets/fontawesome/js/fontawesome-all.js'
-import '@fortawesome/fontawesome'
+// import '@/assets/fontawesome/js/fontawesome-all.js'
+// import '@fortawesome/fontawesome'
