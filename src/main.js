@@ -3,8 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-// import store from './store/store'
-// import firebaseApp from '@/firebase'
+import store from './store'
 import firebase from 'firebase'
 import 'normalize.css'
 
@@ -21,7 +20,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     /* eslint-disable no-new */
     app = new Vue({
       el: '#app',
-      // store,
+      store,
       template: '<App/>',
       components: { App },
       router

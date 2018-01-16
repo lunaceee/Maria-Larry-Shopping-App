@@ -1,37 +1,27 @@
 <template>
-  <div id='list'>
+<div id='list'>
+  <div class="" v-if="itemsInBasket > 0">
     <div v-for="i in itemsGroups" :key="i.key">
       <div class="category-name"> <span>{{ i }}</span> </div>
-      <div  v-for="item in items" :key="item.key">
+      <div v-for="item in items" :key="item.key">
         <div class="item" v-if="item.amount > 0 && item.category === i">
-          <div class="">
             <span class="name">{{item.name}}</span>
-          </div>
           <div class="right-align">
             <span>{{ item.amount }}</span>
           </div>
         </div>
       </div>
     </div>
-    <!-- <div class="" v-if="itemsInBasket > 0">
-      <div  v-for="item in items" :key="item.key">
-        <div class="item" v-if="item.amount > 0">
-          <div class="">
-            <span>{{item.name}}</span>
-          </div>
-          <div class="right-align">
-            <span>{{ item.amount }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="" v-else>
+  </div>
+    <div v-else>
       No items in the basket
-    </div> -->
+    </div>
   </div>
 </template>
 <script>
-import { firebaseApp } from '@/firebase'
+import {
+  firebaseApp
+} from '@/firebase'
 const db = firebaseApp.database()
 var itemsRef = db.ref('items')
 export default {
@@ -66,32 +56,29 @@ export default {
   }
 }
 </script>
-<style media="screen" lang="scss">
+<style media="screen" lang="scss" scoped>
 .category-name {
-  text-align: center;
-  margin: 0 auto;
-  display: block;
-  position: relative;
-  max-width: 35rem;
-  z-index: 1;
-  span {
-    background-color: #181818;
-    padding: .5rem;
-  }
-  &:after {
-    left: 0;
-    z-index: -1;
-    top: .5rem;
-    position: absolute;
-    content: '';
-    width: 100%;
-    border-bottom: 1px #fff solid;
-  }
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    position: relative;
+    max-width: 35rem;
+    z-index: 1;
+    span {
+        background-color: #181818;
+        padding: 0.5rem;
+    }
+    &:after {
+        left: 0;
+        z-index: -1;
+        top: 0.5rem;
+        position: absolute;
+        content: '';
+        width: 100%;
+        border-bottom: 1px #fff solid;
+    }
 }
 .item {
-    .vtouch {
-        height: 100%;
-    }
     margin: 8px auto;
     max-width: 35rem;
     border-radius: 8px;
@@ -103,35 +90,8 @@ export default {
     padding-left: 8px;
     transition: transform ease-out 0.2s;
     box-shadow: 0 1px 14px 0 rgba(0,0,0,0.10);
-    &.draggable {
-        transition: background ease 0.2s;
-        &.toRemove {
-            background: #EC5F4A;
-            &::after {
-                position: absolute;
-                right: -32px;
-                top: 0;
-                line-height: 48px;
-                font-size: 28px;
-                font-family: "FontAwesome";
-                content: "\f2ed";
-            }
-        }
-    }
-    span {
-        height: 32px;
-        width: 32px;
-        display: inline-block;
-        text-align: center;
-    }
-    input {
-        color: #fff;
-        float: left;
-        padding-left: 8px;
-        line-height: 48px;
-        width: 100%;
-        background: transparent;
-        border: none;
+    * {
+      display: inline-block;
     }
 }
 </style>

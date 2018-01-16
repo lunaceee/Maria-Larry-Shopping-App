@@ -1,6 +1,5 @@
 <template lang="html">
   <div class="categories">
-
       <router-link  class="category" v-for="category in categories" :key="category.key" :to="{path: category.url}">{{ category.url }}
       </router-link>
   </div>
