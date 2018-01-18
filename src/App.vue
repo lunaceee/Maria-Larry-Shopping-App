@@ -1,7 +1,7 @@
 <template>
 <div id="app" v-bind:class="[$route.params.category, $route.name]">
   <div class="container">
-    <nav-menu class="navigation" v-show="$route.meta.requiresAuth && $route.params.category"></nav-menu>
+    <nav-menu class="navigation" v-show="$route.meta.requiresAuth && $route.name !== 'list' && $route.name !== 'NewPage' "></nav-menu>
     <router-view class="app-body"></router-view>
   </div>
   <bottom-nav v-show="$route.meta.requiresAuth"></bottom-nav>
@@ -12,22 +12,11 @@
 import NavigationMenu from './components/NavigationMenu'
 import BottomNavigation from './components/BottomNavigation'
 
-// import { user } from '@/firebase'
-// const currentUser = firebase.auth().currentUser
-
 export default {
-  data: () => ({
-    newItems: [],
-    newItem: ''
-  }),
   name: 'app',
   components: {
     'nav-menu': NavigationMenu,
     'bottom-nav': BottomNavigation
-  },
-  mounted () {
-    // do something after mounting vue instance
-    console.log()
   }
 }
 </script>

@@ -7,6 +7,7 @@ import Login from '@/views/Login'
 import Settings from '@/views/Settings'
 import forgotPassword from '@/views/forgotPassword'
 import Categories from '@/views/Categories'
+import NewPage from '@/views/NewPage'
 import firebase from 'firebase'
 
 Vue.use(Router)
@@ -17,6 +18,14 @@ let router = new Router({
     {
       path: '/',
       redirect: '/login'
+    },
+    {
+      path: '/newpage',
+      name: 'NewPage',
+      component: NewPage,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/login',
