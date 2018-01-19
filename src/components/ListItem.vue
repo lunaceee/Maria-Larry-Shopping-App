@@ -1,52 +1,57 @@
 <template lang="html">
   <div>
     <div class="item" @click="modal = true">
-      {{name}}
+      {{thisItem.name}}
       <div class="modal-container" v-if="modal">
         <div class="modal">
-          <input type="text" class="name modal-header" v-model="name" name="" value="" :placeholder="name">
+          <input type="text" class="name modal-header" :placeholder="thisItem.name" v-model="thisItem.name" >
           </input>
           <div class="modal-description">
-            {{description}}
+            <input type="text" name="" value="" :placeholder="thisItem.description" v-model="thisItem.description">
           </div>
           <div class="modal-body">
             <div class="category">
-              <span>{{category}}</span>
+              <span>{{thisItem.category}}</span>
             </div>
             <div class="amount">
-              amount: {{amount}}
+              amount: {{thisItem.amount}}
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="modal-overlay" v-if="modal" @click="modal = false"/>
+    <div class="modal-overlay" v-if="modal" @click="modal = false, updateItem(thisItem)"/>
   </div>
 </template>
 
 <script>
+import {
+  firebaseApp
+} from '@/firebase'
+const db = firebaseApp.database()
+var items = db.ref('items')
 
 export default {
   data: () => ({
-    modal: false
+    modal: false,
+    thisItem: []
   }),
   props: {
-    name: {
-      default: 'Item',
-      type: String
-    },
-    description: {
-      default: 'description',
-      type: String
-    },
-    category: {
-      default: 'Category',
-      type: String
-    },
-    amount: {
-      default: '0',
-      type: Number
+    item: {
     }
+  },
+  methods: {
+    updateItem (item) {
+      items.child(item['.key'])
+        .update({
+          name: item.name,
+          description: item.description
+        })
+    }
+  },
+  mounted () {
+    // do something after mounting vue instance
+    this.$bindAsObject('thisItem', items.child(this.item['.key']))
   }
 }
 </script>
@@ -70,7 +75,7 @@ export default {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(#2b2b2b, 0.6);
+  background: rgba(#fff, 0.35);
   box-shadow: 0 .5rem .5rem rbga(#000, 0.8)
 }
 .modal-container {

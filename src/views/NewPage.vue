@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="">
-    <list-item v-for="item in items" :key="item.key" :name="item.name" :category="item.category" :amount="item.amount"/>
+    <list-item v-for="item in items" :item="item" :key="item.key" :name="item.name" :category="item.category" :amount="item.amount"/>
   </div>
 </template>
 
@@ -17,13 +17,13 @@ export default {
   created () {
     this.$bindAsArray('items', items)
   },
+  methods: {
+    test () {
+      console.log(this)
+    }
+  },
   components: {
     ListItem
-  },
-  watch: {
-    items: function (newVal, oldVal) {
-      console.log('Prop changed: ', newVal, ' | was: ', oldVal)
-    }
   }
 }
 </script>
