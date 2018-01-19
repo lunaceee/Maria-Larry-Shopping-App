@@ -4,14 +4,16 @@
       {{thisItem.name}}
       <div class="modal-container" v-if="modal">
         <div class="modal">
-          <input type="text" class="name modal-header" :placeholder="thisItem.name" v-model="thisItem.name" >
-          </input>
+          <div class="modal-header">
+            <input type="text" class="name" :placeholder="thisItem.name" v-model="thisItem.name" >
+            </input>
+          </div>
           <div class="modal-description">
-            <input type="text" name="" value="" :placeholder="thisItem.description" v-model="thisItem.description">
+            <textarea rows="5" type="text" name="" value="" :placeholder="defaultDescription" v-model="thisItem.description"/>
           </div>
           <div class="modal-body">
             <div class="category">
-              <span>{{thisItem.category}}</span>
+              <v-select v-model="selected" :options="categoryNames"></v-select>
             </div>
             <div class="amount">
               amount: {{thisItem.amount}}
@@ -30,14 +32,33 @@ import {
 } from '@/firebase'
 const db = firebaseApp.database()
 var items = db.ref('items')
+var categories = db.ref('categories')
 
 export default {
   data: () => ({
     modal: false,
-    thisItem: []
+    thisItem: [],
+    thisCategories: [],
+    selected: null
   }),
   props: {
     item: {
+    }
+  },
+  computed: {
+    defaultDescription: function defaultDescription () {
+      if (this.thisItem.description) {
+        return this.thisItem.description
+      } else {
+        return 'description...'
+      }
+    },
+    categoryNames: function categoryNames () {
+      let categories = []
+      for (let i = 0; i < this.thisCategories.length; i++) {
+        categories.push(this.thisCategories[i].url)
+      }
+      return categories
     }
   },
   methods: {
@@ -45,13 +66,17 @@ export default {
       items.child(item['.key'])
         .update({
           name: item.name,
-          description: item.description
+          description: item.description,
+          category: this.selected
         })
     }
   },
   mounted () {
     // do something after mounting vue instance
     this.$bindAsObject('thisItem', items.child(this.item['.key']))
+  },
+  created () {
+    this.$bindAsArray('thisCategories', categories)
   }
 }
 </script>
@@ -67,7 +92,11 @@ export default {
   &:focus, &:active {
     border: 1px #7e7e7e solid;
   }
+  .v-select .selected-tag {
+    color: #fff;
+  }
 }
+
 .modal-overlay {
   z-index: 9;
   position: fixed;
@@ -91,11 +120,8 @@ export default {
     max-width: 35rem;
     width: 100%;
     border-radius: .25rem;
-    overflow: hidden;
-    .modal-header {
-      font-size: 1.5rem;
-    }
-    .name {
+    input, textarea {
+      padding: 1rem;
       font-family: 'Comfortaa', sans-serif;
       color: #fff;
       border: none;
@@ -107,11 +133,14 @@ export default {
         outline: none;
       }
     }
+    input {
+      font-size: 1.5rem;
+    }
     .modal-description {
       opacity: 0.6;
     }
     .modal-header, .modal-description {
-      padding: 1rem;
+      overflow: hidden;
       border-bottom: 1px rgba(#000, 0.2) solid;
     }
     .modal-body {
