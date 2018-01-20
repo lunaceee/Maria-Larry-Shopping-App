@@ -50,37 +50,37 @@ export default {
       }
     }
 }
-.container {
-  height: calc(100% - 3.778rem);
-  @media (max-width: 768px) {
-    .navigation {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 10;
-      + div {
-        margin-top: 65px;
-      }
-    }
-  }
-  @media (min-width: 768px) {
-    display: flex;
-    .app-body {
-      width: 100%;
-    }
-    .navigation > div {
-      min-width: 200px;
-      display: flex;
-      flex-direction: column;
-      a {
-        text-align: left;
-        color: #fff;
-        padding: 10px 20px;
-        border-bottom: 1px solid #181818;
-      }
-    }
-  }
-}
+// .container {
+//   height: calc(100% - 3.778rem);
+//   @media (max-width: 768px) {
+//     .navigation {
+//       position: fixed;
+//       top: 0;
+//       left: 0;
+//       width: 100%;
+//       z-index: 10;
+//       + div {
+//         margin-top: 65px;
+//       }
+//     }
+//   }
+//   @media (min-width: 768px) {
+//     display: flex;
+//     .app-body {
+//       width: 100%;
+//     }
+//     .navigation > div {
+//       min-width: 200px;
+//       display: flex;
+//       flex-direction: column;
+//       a {
+//         text-align: left;
+//         color: #fff;
+//         padding: 10px 20px;
+//         border-bottom: 1px solid #181818;
+//       }
+//     }
+//   }
+// }
 
 </style>
