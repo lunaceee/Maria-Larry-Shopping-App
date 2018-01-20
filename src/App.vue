@@ -37,6 +37,7 @@ export default {
     background: #181818;
 }
 header, footer {
+  position: fixed;
   height: 60px;
   background: #2b2b2b;
   box-shadow: 0 10px 10px rgba(#000, 0.1);
@@ -50,7 +51,7 @@ header, footer {
 }
 main {
   overflow: hidden;
-  height: calc(100% - 120px);
+  height: calc(100vh - 120px);
   z-index: 9;
 }
 .app-body {
