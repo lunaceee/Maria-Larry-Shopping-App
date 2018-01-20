@@ -13,7 +13,11 @@
           </div>
           <div class="modal-body">
             <div class="category">
-              <v-select v-model="selected" :options="categoryNames"></v-select>
+              {{thisItem.category}}
+              <select v-model="selected" @change="updateItem(thisItem)">
+                <option disabled value="">Please select one</option>
+                <option v-for="category in categoryNames" :key="category.key">{{category}}</option>
+              </select>
             </div>
             <div class="amount">
               amount: {{thisItem.amount}}
