@@ -14,7 +14,7 @@
           <div class="modal-body">
             <div class="category">
               {{thisItem.category}}
-              <select v-model="selected" @change="updateItem(thisItem)">
+              <select v-model="selected" @change="updateCategory(thisItem)">
                 <option disabled value="">Please select one</option>
                 <option v-for="category in categoryNames" :key="category.key">{{category}}</option>
               </select>
@@ -70,7 +70,12 @@ export default {
       items.child(item['.key'])
         .update({
           name: item.name,
-          description: item.description,
+          description: item.description
+        })
+    }
+    updateCategory (item) {
+      items.child(item['.key'])
+        .update({
           category: this.selected
         })
     }
