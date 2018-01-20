@@ -72,7 +72,7 @@ export default {
           name: item.name,
           description: item.description
         })
-    }
+    },
     updateCategory (item) {
       items.child(item['.key'])
         .update({
