@@ -105,7 +105,7 @@ export default {
       background: #2b2b2b;
       position: fixed;
       top: 60px;
-      height: calc(100vh - 120px);
+      height: calc(100% - 120px);
       width: 200px;
       display: flex;
       flex-direction: column;

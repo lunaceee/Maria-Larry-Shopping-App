@@ -112,7 +112,7 @@ export default {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background: rgba(#fff, 0.35);
   box-shadow: 0 .5rem .5rem rbga(#000, 0.8)
 }

@@ -50,7 +50,7 @@ header, footer {
 }
 main {
   overflow: hidden;
-  height: calc(100vh - 120px);
+  height: calc(100% - 120px);
   z-index: 9;
 }
 .app-body {
