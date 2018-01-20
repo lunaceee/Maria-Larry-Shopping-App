@@ -5,11 +5,8 @@ import App from './App'
 import router from './router'
 import store from './store'
 import firebase from 'firebase'
-import vSelect from 'vue-select'
 
 import 'normalize.css'
-
-Vue.component('v-select', vSelect)
 
 Vue.config.productionTip = false
 /* eslint-disable no-new */
