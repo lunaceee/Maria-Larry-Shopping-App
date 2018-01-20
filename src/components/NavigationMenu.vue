@@ -1,7 +1,8 @@
 <template>
-<div id="nav-menu" class="navigation">
-  <div class="link" v-for="category in categories">
-    <router-link   :key="category.key" :to="{path: category.url}">{{ category.url }}
+<div class="">
+  <div id="nav-menu" class="navigation">
+    <router-link :to="{ path: 'categories'}">All Categories</router-link>
+    <router-link class="link" v-for="category in categories" :key="category.key" :to="{path: category.url}">{{ category.url }}
     </router-link>
     <span class="deleteCategory" @click="deleteCategory(category)"></span>
   </div>
@@ -49,23 +50,23 @@ export default {
     justify-content: flex-start;
     min-width: 200px;
     .link {
-      position: relative;
-      &:hover {
+        position: relative;
+        &:hover {
+            .deleteCategory {
+                opacity: 1;
+            }
+        }
         .deleteCategory {
-          opacity: 1;
+            opacity: 0;
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            cursor: pointer;
+            &:after {
+                content: "\f146";
+                font-family: "FontAwesome";
+            }
         }
-      }
-      .deleteCategory {
-        opacity: 0;
-        position: absolute;
-        top: .75rem;
-        right: .75rem;
-        cursor: pointer;
-        &:after {
-          content: "\f146";
-          font-family: "FontAwesome"
-        }
-      }
     }
     a {
         color: #fff;
@@ -75,29 +76,29 @@ export default {
         &:last-child {
             border-right: 1px solid #181818;
         }
-        &.router-link-exact-active  {
-          background: #fff;
-          color: #181818;
-          + .deleteCategory {
+        &.router-link-exact-active {
+            background: #fff;
             color: #181818;
-          }
+            + .deleteCategory {
+                color: #181818;
+            }
         }
 
     }
     input {
-      margin: 10px 20px;
+        margin: 10px 20px;
     }
 }
 
 .plus {
-  padding: 0;
-  margin: 0 auto;
-  background: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  &:after {
-    content: "+";
-  }
+    padding: 0;
+    margin: 0 auto;
+    background: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:after {
+        content: "+";
+    }
 }
 </style>
