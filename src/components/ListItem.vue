@@ -98,6 +98,7 @@ export default {
   border-radius: 8px;
   background: #2b2b2b;
   border: 1px #2b2b2b solid;
+  user-select: none;
   &:focus, &:active {
     border: 1px #7e7e7e solid;
   }
@@ -118,7 +119,7 @@ export default {
 }
 .modal-container {
   position: fixed;
-  z-index: 10;
+  z-index: 99;
   max-width: 35rem;
   width: 100%;
   top: 50%;
@@ -128,6 +129,8 @@ export default {
     background: #2b2b2b;
     max-width: 35rem;
     width: 100%;
+    max-width: calc(100% - 2rem);
+    margin: 0 auto;
     border-radius: .25rem;
     input, textarea {
       padding: 1rem;

@@ -2,7 +2,7 @@
 <div id="app" v-bind:class="[$route.params.category, $route.name]">
   <header>
     <nav-menu></nav-menu>
-    <router-link :to="{ path: '/'}"><h1 class="title">Shopping App</h1></router-link>
+    <router-link :to="{ path: '/'}" class="title"><h1>Shopping App</h1></router-link>
   </header>
   <main>
     <router-view class="app-body"></router-view>
@@ -44,25 +44,31 @@ header, footer {
   height: 60px;
   background: #2b2b2b;
   box-shadow: 0 10px 10px rgba(#000, 0.1);
-  z-index: 10;
+  z-index: 99;
   position: relative;
 }
 footer {
   position: fixed;
   bottom: 0;
   width: 100%;
-  justify-content: space-around;
-  display: flex;
   color: #fff;
 }
 .title {
   text-align: center;
-  margin: 0;
   line-height: 60px;
+  text-decoration: none;
+  h1 {
+    margin: 0;
+    color: #fff;
+  }
 }
 main {
+  position: fixed;
+  top: 0;
   overflow: hidden;
-  height: calc(100vh - 120px);
+  height: calc(100% - 120px);
+  width: 100%;
+  margin: 60px 0;
   z-index: 9;
 }
 .app-body {

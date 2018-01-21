@@ -96,13 +96,14 @@ export default {
 }
 .navigation {
     position: fixed;
+    z-index: 0;
     // background: #1E1E1E;
     // box-shadow: 0 1px 14px 0 rgba(0,0,0,0.10);
     // display: flex;
     // flex-direction: column;
     // justify-content: flex-start;
     .menu {
-      background: #2b2b2b;
+      background: darken(#2b2b2b, 5%);
       position: fixed;
       top: 60px;
       height: calc(100% - 120px);
