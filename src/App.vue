@@ -1,5 +1,5 @@
 <template>
-<div id="app" v-bind:class="[$route.params.category, $route.name]">
+<div id="app">
   <header>
     <nav-menu></nav-menu>
     <router-link :to="{ path: '/'}" class="title"><h1>Shopping App</h1></router-link>
@@ -38,6 +38,10 @@ export default {
     position: fixed;
     height: 100%;
     width: 100%;
+    user-select: none;
+    * {
+      font-family: 'Comfortaa', sans-serif;
+    }
 }
 header, footer {
   position: fixed;

@@ -4,12 +4,10 @@
       <span></span>
     </div>
     <div id="nav-menu" class="menu" v-show="burgerOpen">
-      <router-link :to="{ path: 'categories'}">All Categories</router-link>
-      <router-link class="link" v-for="category in categories" :key="category.key" :to="{path: category.url}">{{ category.url }}
-      </router-link>
-      <span class="deleteCategory" @click="deleteCategory(category)"></span>
-      <button class="button plus" v-show='!newCategoryShow' @click="newCategoryShow = true" type="button" name="button"></button>
-      <input v-show="newCategoryShow" v-model="newCategory" type="text" name="" value="" @blur="newCategoryShow = false" @keydown.enter="addCategory(); newCategoryShow = false">
+      <div class="burger-overflow" @click="burgerOpen = !burgerOpen"></div>
+      <router-link class="link" :to="{ path: 'categories'}">All Categories</router-link>
+      <router-link class="link" v-for="category in categories" :key="category.key" :to="{path: category.url}">{{ category.url }}<span class="deleteCategory" @click="deleteCategory(category)"></span></router-link>
+      <input v-model="newCategory" type="text" name="" value="" @keydown.enter="addCategory()" placeholder="Add Category">
     </div>
   </div>
 </template>
@@ -46,6 +44,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.burger-overflow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+}
 .burger {
   cursor: pointer;
   width: 60px;
@@ -110,8 +115,12 @@ export default {
       width: 200px;
       display: flex;
       flex-direction: column;
+      input, button {
+        position: relative;
+      }
     }
     .link {
+      text-decoration: none;
         position: relative;
         &:hover {
             .deleteCategory {
@@ -145,10 +154,17 @@ export default {
                 color: #181818;
             }
         }
-
     }
     input {
-        margin: 10px 20px;
+      color: #fff;
+      padding: 10px 20px;
+      border-left: 1px solid #181818;
+      background: lighten(#2b2b2b, 10%);
+      border: none;
+      &:focus {
+        background: lighten(#2b2b2b, 20%);
+        color: darken(#2b2b2b, 10%)
+      }
     }
 }
 

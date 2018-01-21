@@ -46,14 +46,14 @@ $mobile-bottom-bar-primary-dark: darken($primary-color, 1%);
         justify-content: center;
         align-items: center;
         &:active,
-        &:focus {
+        &:focus, &.router-link-exact-active {
             background: $mobile-bottom-bar-primary-dark;
         }
     }
 
     .footer-text {
         position: relative;
-        font-size: 14px;
+        font-size: 12px;
         color: #fff;
     }
 }

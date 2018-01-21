@@ -1,6 +1,5 @@
 <template>
 <div id='shopping-item' class='shopping-area'>
-
   <div class='item login' v-for='item in newItems' v-bind:category='item.category' v-if='item.category === $route.params.category'>
     <v-touch class="vtouch" ref="swiper" v-bind:pan-options="{direction: 'horizontal', pointer: 0, threshold: 0}" v-on:pan="removeItemSwipe" v-bind:uid="(item['.key'])" v-bind:amount='item.amount' v-on:panend="removeStyle">
       <div class='name-container'>
@@ -13,13 +12,10 @@
       </div>
     </v-touch>
   </div>
-
-  <div class="focus-overlay" v-show="isNewItemFocused">
-
-  </div>
+  <div class="focus-overlay" v-show="isNewItemFocused"></div>
   <div class="addItem-container" :class="{active: isNewItemFocused }">
     <input id="addItem" ref="newItemRef" v-show="isNewItemFocused" @focus="isNewItemFocused = true" @blur="isNewItemFocused = false" v-model="newItem" @keydown.esc="removeFocus" @keyup.enter="addItem" placeholder="Add New Item" />
-    <div class="addItem-button" @click="isNewItemFocused = true; addFocus()"></div>
+    <div class="addItem-button" v-show="!isNewItemFocused" @click="isNewItemFocused = true; addFocus()"></div>
   </div>
 
 
@@ -121,7 +117,7 @@ export default {
     .vtouch {
         height: 100%;
     }
-    margin: 8px auto;
+    margin: 8px;
     max-width: 35rem;
     border-radius: 8px;
     position: relative;
@@ -158,7 +154,6 @@ export default {
         float: left;
         padding-left: 8px;
         line-height: 48px;
-        width: 100%;
         background: transparent;
         border: none;
     }
@@ -199,15 +194,20 @@ export default {
     z-index: 2;
     position: fixed;
     bottom: 60px;
-    padding: 15px;
+    height: 3rem;
     left: 0;
     display: flex;
     width: 100%;
     justify-content: center;
     transition: all ease 0.4s;
     background: rgba(#1e1e1e, 1);
-    &.active {
-        bottom: 0;
+    #addItem {
+      background: darken(#2b2b2b, 4%);
+      color: #fff;
+      outline: none;
+      width: 100vw;
+      border: none;
+      padding: 1rem;
     }
     .addItem-button {
       &:after {
@@ -219,13 +219,13 @@ export default {
       justify-content: flex-end;
       padding: 0;
       .addItem-button {
-        width: 32px;
-        height: 32px;
+        width: 2rem;
+        height: 2rem;
         padding: 0;
+        margin: .5rem;
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 15px;
         &:after {
           content: '+'
         }
