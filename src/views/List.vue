@@ -45,9 +45,7 @@ export default {
       let categories = []
       for (item of this.items) {
         categories.push(item.category)
-        // var list = categories[item.category]
       }
-      console.log(categories)
       return Array.from(new Set(categories))
     }
   },
@@ -79,17 +77,15 @@ export default {
     }
 }
 .item {
-    margin: 8px auto;
-    max-width: 35rem;
-    border-radius: 8px;
-    position: relative;
-    background: #2b2b2b;
-    height: 48px;
-    font-size: 14px;
-    border-bottom: #181818 solid 1px;
-    padding-left: 8px;
-    transition: transform ease-out 0.2s;
-    box-shadow: 0 1px 14px 0 rgba(0,0,0,0.10);
+  padding: 10px 20px;
+  margin: 8px auto;
+  max-width: 35rem;
+  border-radius: 8px;
+  background: #2b2b2b;
+  border: 1px #2b2b2b solid;
+  user-select: none;
+  display: flex;
+  justify-content: space-between;
     * {
       display: inline-block;
     }
