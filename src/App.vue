@@ -1,32 +1,74 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+<div id="app">
+  <header v-if="$route.meta.requiresAuth">
+    <!-- <nav-menu></nav-menu> -->
+    <router-link :to="{ path: '/'}" class="title">
+      <h1>Shopping App</h1>
+    </router-link>
+  </header>
+  <main>
+    <router-view class="app-body"></router-view>
+  </main>
+  <footer v-if="$route.meta.requiresAuth">
+    <bottom-nav></bottom-nav>
+  </footer>
+</div>
 </template>
+<script type="text/javascript">
 
-<style>
+import bottomNav from '@/components/bottomFooter'
+
+export default {
+  components: {
+    bottomNav
+  }
+}
+</script>
+
+<style lang="scss">
+@import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700');
+body {
+  margin: 0;
+  padding: 0;
+}
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Ubuntu Mono', monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #000;
+}
+header {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: #000;
 }
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
+header a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #FFF;
+}
+main {
+  padding-top: 60px;
+  padding-bottom: 60px;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+footer {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: #000;
+  color: #fff;
 }
 </style>
