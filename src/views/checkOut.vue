@@ -3,6 +3,7 @@
     <ul>
       <listItem v-for="item in checkOutItems"
       :name="item.name"
+      :amount='item.amount'
       :key="item.key"
       />
     </ul>

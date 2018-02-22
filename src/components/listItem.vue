@@ -4,10 +4,10 @@
     {{name}}
   </div>
   <div class="float-right">
-    <button v-if="amount != undefined" type="button" name="button" @click="emitRemove()"> 🗑 </button>
-    <button v-if="amount != undefined" @click="emitMinus()"> - </button>
-    <span v-if="amount != undefined">{{amount}}</span>
-    <button v-if="amount != undefined" @click="emitPlus()"> + </button>
+    <button v-if="isHomePage" type="button" name="button" @click="emitRemove()"> 🗑 </button>
+    <button v-if="isHomePage" @click="emitMinus()"> - </button>
+    <span>{{amount}}</span>
+    <button v-if="isHomePage" @click="emitPlus()"> + </button>
   </div>
 </li>
 </template>
@@ -22,6 +22,11 @@ export default {
     amount: {
       type: Number,
       required: false
+    }
+  },
+  computed: {
+    isHomePage: function isHomePage() {
+      return this.$route.path === '/basket'
     }
   },
   methods: {
