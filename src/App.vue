@@ -28,7 +28,6 @@ export default {
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700');
 body {
-  background: #000;
   margin: 0;
   padding: 0;
 }
@@ -57,7 +56,7 @@ header a {
 }
 main {
   .app-body {
-    background: #fff;  
+    background: #fff;
   }
   padding-top: 60px;
   padding-bottom: 60px;

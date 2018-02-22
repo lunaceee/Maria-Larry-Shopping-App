@@ -1,7 +1,9 @@
 <template>
 <div class="signUp">
-  <h3>Sign-up/ Login</h3>
-  <div id="firebaseui-auth-container"></div>
+  <div class="signUp_wrapper">
+    <h3>Sign-up/ Login</h3>
+    <div id="firebaseui-auth-container"></div>
+  </div>
 </div>
 </template>
 
@@ -34,15 +36,19 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .signUp {
-  background: #000;
   height: calc(100vh - 120px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   color: #fff;
+  &_wrapper {
+    background: #000;
+    border-radius: 5px;
+    box-shadow: 0 5px 12px 0 rgba(#000, 0.3);
+  }
 }
 
 input {
