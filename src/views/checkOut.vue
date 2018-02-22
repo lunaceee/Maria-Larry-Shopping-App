@@ -2,9 +2,10 @@
   <div>
     <ul>
       <listItem v-for="item in checkOutItems"
-      :name="item.name"
+      :name='item.name'
       :amount='item.amount'
-      :key="item.key"
+      :key='item.key'
+      @emitRemove='removeItem(item[".key"])'
       />
     </ul>
   </div>
@@ -12,15 +13,22 @@
 
 <script>
 import { db } from '@/firebase'
-var itemsRef = db.ref('items').orderByChild("amount").startAt(1)
+const checkOutItems = db.ref('items').orderByChild("amount").startAt(1)
 import listItem from '@/components/listItem'
 
 export default {
   components: {
     listItem
   },
+  methods: {
+    removeItem (key) {
+      db.ref('items').child(key).update({
+        amount: 0
+      })
+    }
+  },
   created() {
-    this.$bindAsArray('checkOutItems', itemsRef)
+    this.$bindAsArray('checkOutItems', checkOutItems)
   }
 }
 </script>

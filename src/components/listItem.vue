@@ -4,7 +4,7 @@
     {{name}}
   </div>
   <div class="float-right">
-    <button v-if="isHomePage" type="button" name="button" @click="emitRemove()"> 🗑 </button>
+    <button type="button" name="button" @click="emitRemove()"> 🗑 </button>
     <button v-if="isHomePage" @click="emitMinus()"> - </button>
     <span>{{amount}}</span>
     <button v-if="isHomePage" @click="emitPlus()"> + </button>
