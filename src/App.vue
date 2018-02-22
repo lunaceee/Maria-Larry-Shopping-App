@@ -37,6 +37,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #000;
+  * {
+    font-family: 'Ubuntu Mono', monospace;
+  }
 }
 header {
   position: fixed;
@@ -73,5 +76,8 @@ footer {
   height: 60px;
   background: #000;
   color: #fff;
+}
+button {
+  cursor: pointer;
 }
 </style>
