@@ -20,8 +20,10 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
 .settings {
+  margin: 0 auto;
+  max-width: 72.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,5 +45,18 @@ li {
 
 a {
   color: #42b983;
+}
+button {
+  cursor: pointer;
+  background: #000;
+  border: 2px solid #fff;
+  color: #fff;
+  margin: 1rem 0;
+  padding: .75rem 1rem;
+  font-size: 1rem;
+  &:hover {
+    background: #fff;
+    color: #000;
+  }
 }
 </style>
