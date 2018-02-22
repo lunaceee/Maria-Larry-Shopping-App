@@ -1,21 +1,66 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
-import About from "./views/About.vue";
+import Basket from "./views/Basket.vue";
+import Settings from "./views/Settings.vue";
+import checkOut from "./views/checkOut.vue";
+import SignUp from '@/views/SignUp'
 
-Vue.use(Router);
+import firebase from 'firebase'
+import {firebaseApp} from './firebase'
 
-export default new Router({
+Vue.use(Router)
+
+let router =  new Router({
+  mode: 'history',
   routes: [
     {
-      path: "/",
-      name: "home",
-      component: Home
+      path: '/',
+      redirect: '/login'
     },
     {
-      path: "/about",
-      name: "about",
-      component: About
+      path: '/login',
+      name: 'SignUp',
+      component: SignUp
+    },
+    {
+      path: '/basket',
+      name: 'basket',
+      component: Basket,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/checkout',
+      name: 'checkout',
+      component: checkOut,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: Settings,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '*',
+      redirect: '/login'
     }
   ]
-});
+})
+
+
+router.beforeEach((to, from, next) => {
+  let currentUser = firebase.auth().currentUser;
+  let requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  if (requiresAuth && !currentUser) next('login')
+  else if (!requiresAuth && currentUser) next('/basket')
+  else next()
+})
+
+export default router
