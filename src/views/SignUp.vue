@@ -20,7 +20,7 @@ export default {
   },
   mounted() {
     var uiConfig = {
-      signInSuccessUrl: '/success',
+      signInSuccessUrl: '/basket',
       signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.EmailAuthProvider.PROVIDER_ID,
@@ -36,7 +36,8 @@ export default {
 
 <style scoped>
 .signUp {
-  height: 100vh;
+  background: #000;
+  height: calc(100vh - 120px);
   display: flex;
   flex-direction: column;
   justify-content: center;
