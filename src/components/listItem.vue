@@ -47,6 +47,7 @@ export default {
 .item {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   list-style: none;
   border: 1px #2c3e50 solid;
   border-radius: 5px;
@@ -59,6 +60,10 @@ export default {
     &-left {
       justify-content: flex-start;
     }
+  }
+  button {
+    height: 24px;
+    line-height: 20px;
   }
 }
 </style>
