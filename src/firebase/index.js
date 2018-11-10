@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueFire from "vuefire";
-import firebase from "firebase";
+import firebase from "firebase/app";
+import database from "firebase/database";
 
 Vue.use(VueFire);
 

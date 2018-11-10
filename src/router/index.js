@@ -5,7 +5,8 @@ import Settings from "../views/Settings.vue";
 import checkOut from "../views/checkOut.vue";
 import SignUp from "@/views/SignUp";
 
-import firebase from "firebase";
+import firebase from "firebase/app";
+import auth from "firebase/auth";
 
 Vue.use(Router);
 

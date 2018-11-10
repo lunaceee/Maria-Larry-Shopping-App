@@ -8,7 +8,8 @@
 </template>
 
 <script>
-import firebase from "firebase";
+import firebase from "firebase/app";
+import auth from "firebase/auth";
 import firebaseui from "firebaseui";
 
 export default {
