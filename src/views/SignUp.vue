@@ -1,39 +1,40 @@
 <template>
-<div class="signUp">
-  <div class="signUp_wrapper">
-    <h3>Sign-up/ Login</h3>
-    <div id="firebaseui-auth-container"></div>
+  <div class="signUp">
+    <div class="signUp_wrapper">
+      <h3>Sign-up/ Login</h3>
+      <div id="firebaseui-auth-container"/>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
-import firebase from 'firebase'
-import firebaseui from 'firebaseui'
+import firebase from "firebase";
+import firebaseui from "firebaseui";
 
-const provider = new firebase.auth.GoogleAuthProvider();
 export default {
-  name: 'signUp',
+  name: "SignUp",
   data: function() {
     return {
-      email: '',
-      password: ''
-    }
+      email: "",
+      password: ""
+    };
   },
   mounted() {
     var uiConfig = {
-      signInSuccessUrl: '/basket',
+      signInSuccessUrl: "/basket",
       signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        firebase.auth.GithubAuthProvider.PROVIDER_ID,
-        firebase.auth.TwitterAuthProvider.PROVIDER_ID
+        firebase.auth.EmailAuthProvider.PROVIDER_ID
       ]
-    }
-    var ui = new firebaseui.auth.AuthUI(firebase.auth())
-    ui.start('#firebaseui-auth-container', uiConfig, firebaseui.auth.CredentialHelper.GOOGLE_YOLO)
+    };
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    ui.start(
+      "#firebaseui-auth-container",
+      uiConfig,
+      firebaseui.auth.CredentialHelper.GOOGLE_YOLO
+    );
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -44,6 +45,7 @@ export default {
   justify-content: center;
   align-items: center;
   color: #fff;
+  background: #000;
   &_wrapper {
     background: #000;
     border-radius: 5px;

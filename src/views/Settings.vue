@@ -1,22 +1,23 @@
 <template>
-  <div class="settings">
-    <button v-on:click="logout">Logout</button>
-  </div>
+  <div class="settings"><button @click="logout">Logout</button></div>
 </template>
 
 <script>
-import firebase from 'firebase'
+import firebase from "firebase";
 
 export default {
-  name: 'hello',
+  name: "Hello",
   methods: {
-    logout: function () {
-      firebase.auth().signOut().then(() => {
-        this.$router.replace('login')
-      })
+    logout: function() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.replace("login");
+        });
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -29,7 +30,8 @@ export default {
   align-items: center;
   height: 100%;
 }
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 
@@ -52,7 +54,7 @@ button {
   border: 2px solid #fff;
   color: #fff;
   margin: 1rem 0;
-  padding: .75rem 1rem;
+  padding: 0.75rem 1rem;
   font-size: 1rem;
   &:hover {
     background: #fff;

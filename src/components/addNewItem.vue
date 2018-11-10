@@ -1,39 +1,52 @@
 <template lang="html">
-<div class="newItem">
-  <div class="newItem_container">
-    <input type="text" ref="NewItem" name="" v-model="addNewItem" @keydown.esc="closeNewItem()" @keydown.enter="addItem(), closeNewItem()" autofocus placeholder="Start here...">
-    <button type="button" name="button" @click="addItem(), closeNewItem()">Add new item</button>
+  <div class="newItem">
+    <div class="newItem_container">
+      <input
+        ref="NewItem"
+        v-model="addNewItem"
+        type="text"
+        name=""
+        autofocus
+        placeholder="Start here..."
+        @keydown.esc="closeNewItem();"
+        @keydown.enter="addItem(), closeNewItem();"
+      >
+      <button
+        type="button"
+        name="button"
+        @click="addItem(), closeNewItem();">
+        Add new item
+      </button>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
-import { db } from '@/firebase'
-var itemsRef = db.ref('items')
+import store from "../store";
+import { db } from "@/firebase";
 
 export default {
   data: () => ({
-    addNewItem: ''
+    addNewItem: ""
   }),
-  methods: {
-    addItem (item, event) {
-      itemsRef.push({
-        name: this.addNewItem,
-        category: 'Uncategorized',
-        amount: 0
-      })
-      this.addNewItem = ''
-    },
-    closeNewItem(event) {
-      this.$emit('closeNewItem')
-    }
-  },
   mounted() {
     //do something after mounting vue instance
-    console.log(this.$refs.NewItem)
-    this.$refs.NewItem.focus()
-  }
-}
+    this.$refs.NewItem.focus();
+  },
+  methods: {
+    addItem() {
+      db.ref(`${store.state.user.user.uid}/items`).push({
+        name: this.addNewItem,
+        category: "Uncategorized",
+        amount: 0
+      });
+      this.addNewItem = "";
+    },
+    closeNewItem() {
+      this.$emit("closeNewItem");
+    }
+  },
+};
 </script>
 
 <style lang="scss">
@@ -67,7 +80,7 @@ export default {
     color: #fff;
     width: 100%;
     margin: 1rem 0;
-    padding: .75rem 1rem;
+    padding: 0.75rem 1rem;
     font-size: 1rem;
     &:hover {
       background: #fff;

@@ -1,17 +1,19 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-import './registerServiceWorker'
-import {firebaseApp} from './firebase'
-import firebase from 'firebase'
-import * as firebaseCSS from 'firebaseui/dist/firebaseui.css'
+import Vue from "vue";
+import App from "./App.vue";
+import router from "@/router";
+import store from "./store";
+import "./registerServiceWorker";
+import firebase from "firebase";
+import * as firebaseCSS from "firebaseui/dist/firebaseui.css";
+import "./scss/main.scss";
+import Vuebar from 'vuebar';
 
-Vue.config.productionTip = false
+Vue.use(Vuebar);
+Vue.config.productionTip = false;
 
 let app;
 
-firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(function() {
   if (!app) {
     /* eslint-disable no-new */
     app = new Vue({
@@ -19,6 +21,6 @@ firebase.auth().onAuthStateChanged(function(user) {
       store,
       firebaseCSS,
       render: h => h(App)
-    }).$mount('#app')
+    }).$mount("#app");
   }
 });

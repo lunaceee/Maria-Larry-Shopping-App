@@ -8,11 +8,13 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "firebase": "^4.10.0",
-    "firebaseui": "^2.6.1",
+    "firebase": "^5.5.7",
+    "firebaseui": "^3.4.1",
+    "iotacss": "^1.6.0",
     "register-service-worker": "^1.0.0",
     "vue": "^2.5.13",
     "vue-router": "^3.0.1",
+    "vuebar": "^0.0.20",
     "vuefire": "^1.4.5",
     "vuex": "^3.0.1"
   },
@@ -21,21 +23,14 @@
     "@vue/cli-plugin-eslint": "^3.0.0-beta.1",
     "@vue/cli-plugin-pwa": "^3.0.0-beta.1",
     "@vue/cli-service": "^3.0.0-beta.1",
-    "@vue/eslint-config-prettier": "^3.0.0-beta.1",
+    "@vue/eslint-config-prettier": "^4.0.0",
     "node-sass": "^4.7.2",
-    "sass-loader": "^6.0.6",
+    "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.5.13"
   },
   "babel": {
     "presets": [
       "@vue/app"
-    ]
-  },
-  "eslintConfig": {
-    "root": true,
-    "extends": [
-      "plugin:vue/essential",
-      "@vue/prettier"
     ]
   },
   "postcss": {
