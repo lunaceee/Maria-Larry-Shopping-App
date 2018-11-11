@@ -40,7 +40,7 @@ export default {
 
 <style lang="scss" scoped>
 .signUp {
-  height: calc(100vh - 120px);
+  height: calc(100vh - 60px);
   display: flex;
   flex-direction: column;
   justify-content: center;

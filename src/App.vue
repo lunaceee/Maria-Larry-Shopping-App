@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <header v-if="$route.meta.requiresAuth">
-      <!-- <nav-menu></nav-menu> -->
+    <header>
       <router-link
         :to="{ path: '/' }"
         class="title">
@@ -67,7 +66,7 @@ main {
     background: #fff;
   }
   padding-top: 60px;
-  padding-bottom: 60px;
+  // padding-bottom: 60px;
 }
 
 footer {

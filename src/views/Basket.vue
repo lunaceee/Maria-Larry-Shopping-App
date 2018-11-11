@@ -6,15 +6,26 @@
     <ul>
       <li
         v-for="item in items"
-        :key="item.key">
-        <listItem
-          :name="item.name"
+        :key="item.key"
+      >
+        <v-touch
+          ref="swiper"
+          :pan-options="{direction: 'horizontal', pointer: 0, threshold: 0}"
+          :uid="item['.key']"
           :amount="item.amount"
-          :key="item.key"
-          @emitMinus="minus(item);"
-          @emitPlus="plus(item);"
-          @emitRemove="removeItem(item);"
-        />
+          class="v-touch"
+          @pan="removeItemSwipe"
+          @panend="removeStyle"
+        >
+          <listItem
+            :name="item.name"
+            :amount="item.amount"
+            :key="item.key"
+            @emitMinus="minus(item);"
+            @emitPlus="plus(item);"
+            @emitRemove="removeItem(item);"
+          />
+        </v-touch>
       </li>
     </ul>
     <button
@@ -61,6 +72,43 @@ export default {
     this.$bindAsArray("items", db.ref(`/${this.uid}/items`));
   },
   methods: {
+    removeItemSwipe (i) {
+
+      if (i.center.x !== 0) {
+        var draggableItem = i.target.closest('.v-touch')
+        draggableItem.classList.remove('draggableEnd');
+        draggableItem.classList.add('draggable')
+        draggableItem.setAttribute('style', 'transform: translateX(' + (i.deltaX * 0.5) + 'px)')
+        if (i.deltaX <= -80) {
+          draggableItem.classList.add('toRemove')
+        } else {
+          draggableItem.classList.remove('toRemove')
+        }
+      }
+    },
+    removeStyle (i) {
+      var draggableItem = i.target.closest('.v-touch')
+      var key = draggableItem.getAttribute('uid')
+      var newAmount = draggableItem.getAttribute('amount')
+      draggableItem.setAttribute('style', '')
+      draggableItem.classList.remove('draggable')
+      if (i.deltaX > 30) {
+        db.ref(`${this.uid}/items`).child(key)
+          .update({
+            amount: ++newAmount
+          })
+      }
+      if (i.deltaX < -30 && newAmount > 0) {
+        db.ref(`${this.uid}/items`).child(key)
+          .update({
+            amount: --newAmount
+          })
+      }
+      draggableItem.classList.add('draggableEnd');
+      // if (i.deltaX < -80) {
+      //   db.ref(`${this.uid}/items`).child(key).remove()
+      // }
+    },
     plus(item) {
       db.ref(`${this.uid}/items`)
         .child(item[".key"])
@@ -117,5 +165,41 @@ export default {
       transform-origin: center;
     }
   }
+}
+.v-touch {
+    &.draggable {
+        transition: background ease 0.2s;
+        &.toRemove {
+            > * {
+              background: #EC5F4A !important;
+            }
+            &::after {
+                position: absolute;
+                right: -32px;
+                top: 0;
+                line-height: 48px;
+                font-size: 28px;
+                font-family: "FontAwesome";
+                content: "\f2ed";
+            }
+        }
+    }
+    &.draggableEnd {
+      transition: all ease 100ms !important;
+    }
+    span {
+        height: 32px;
+        width: 32px;
+        display: inline-block;
+        text-align: center;
+    }
+    input {
+        color: #fff;
+        float: left;
+        padding-left: 8px;
+        line-height: 48px;
+        background: transparent;
+        border: none;
+    }
 }
 </style>

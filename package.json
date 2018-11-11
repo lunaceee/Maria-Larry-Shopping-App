@@ -10,10 +10,12 @@
   "dependencies": {
     "firebase": "^5.5.7",
     "firebaseui": "^3.4.1",
+    "hammerjs": "^2.0.8",
     "iotacss": "^1.6.0",
     "register-service-worker": "^1.0.0",
     "vue": "^2.5.13",
     "vue-router": "^3.0.1",
+    "vue-touch": "^2.0.0-beta.4",
     "vuebar": "^0.0.20",
     "vuefire": "^1.4.5",
     "vuex": "^3.0.1"

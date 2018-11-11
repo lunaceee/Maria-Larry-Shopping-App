@@ -8,8 +8,11 @@ import auth from "firebase/auth";
 import * as firebaseCSS from "firebaseui/dist/firebaseui.css";
 import "./scss/main.scss";
 import Vuebar from 'vuebar';
+import VueTouch from 'vue-touch';
+Vue.use(VueTouch);
 
 Vue.use(Vuebar);
+
 Vue.config.productionTip = false;
 
 let app;
