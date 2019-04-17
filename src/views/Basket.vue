@@ -15,7 +15,7 @@
           :amount="item.amount"
           class="v-touch"
           @pan="removeItemSwipe"
-          @panend="removeStyle"
+          @panend="removeStyle(item)"
         >
           <listItem
             :name="item.name"
@@ -86,17 +86,15 @@ export default {
         }
       }
     },
-    removeStyle (i) {
+    removeStyle (i, item) {
+      var $self = this;
       var draggableItem = i.target.closest('.v-touch')
       var key = draggableItem.getAttribute('uid')
       var newAmount = draggableItem.getAttribute('amount')
       draggableItem.setAttribute('style', '')
       draggableItem.classList.remove('draggable')
       if (i.deltaX > 30) {
-        db.ref(`${this.uid}/items`).child(key)
-          .update({
-            amount: ++newAmount
-          })
+        this.p
       }
       if (i.deltaX < -30 && newAmount > 0) {
         db.ref(`${this.uid}/items`).child(key)
